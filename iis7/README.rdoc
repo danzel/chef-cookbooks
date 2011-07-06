@@ -1,0 +1,53 @@
+= DESCRIPTION:
+A Resource/Provider to create and configure websites in IIS 7 / 7.5.
+
+= REQUIREMENTS:
+Powershell, IIS must already be installed (We don't install it currently)
+
+= RESOURCE/PROVIDER:
+
+== iis7_site
+Configures a website and app pool.
+
+=== Actions:
+
+- :create: Create a website and associated app pool.
+- :delete: Delete a website (NOT IMPLEMENTED)
+
+=== Attribute Parameters
+- name: name attribute. Name the site and app pool will be created with.
+- path: Local directory that the website will be pointed at. Remember to escape backslashes.
+- dotnet: Version of .Net to configure the app pool with. "2.0" or "4.0" (default)
+- bindings: Array of http bindings to associate, in the format "ip:hostname:port"
+- sslbindings: Array of https bindings to associate, in the format "ip:hostname:port"
+
+=== Examples
+
+	iis7_site "www.awesome.com" do
+		path "C:\\Websites\\www.awesome.com"
+		bindings [
+			"*:www.awesome.com:80",
+			"*:awesome.com:80",
+			"*:*:12345",
+		]
+		sslbindings [
+			"*:www.awesome.com:443"
+		]
+	end
+
+== iis7_sslcert
+Sets the ssl cert for a certain ip/port combination in IIS 7 / 7.5
+WARNING: This must be used AFTER a site has been configured using this ip/port combination, otherwise it will not set anything.
+
+=== Attribute Parameters
+- name: name attribute. Unused
+- ip: IP of the network interface to use this certificate on, set "0.0.0.0" for all.
+- port: Port to use this certificate on.
+- certregex: Regex used to match the certificate.Subject from the certificate store. Run "ls cert:\LocalMachine\My" to see the existing certificates.
+
+=== Examples
+iis7_sslcert "*.mydomain.com" do
+    ip "0.0.0.0"
+    port 443
+    certregex "*CN=[*].mydomain.com*"
+end
