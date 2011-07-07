@@ -23,17 +23,17 @@ Configures a website and app pool.
 
 === Examples
 
-	iis7_site "www.awesome.com" do
-		path "C:\\Websites\\www.awesome.com"
-		bindings [
-			"*:www.awesome.com:80",
-			"*:awesome.com:80",
-			"*:*:12345",
-		]
-		sslbindings [
-			"*:www.awesome.com:443"
-		]
-	end
+  iis7_site "www.awesome.com" do
+  	path "C:\\Websites\\www.awesome.com"
+  	bindings [
+  		"*:www.awesome.com:80",
+  		"*:awesome.com:80",
+  		"*:*:12345",
+  	]
+  	sslbindings [
+  		"*:www.awesome.com:443"
+  	]
+  end
 
 == iis7_sslcert
 Sets the ssl cert for a certain ip/port combination in IIS 7 / 7.5
@@ -46,8 +46,9 @@ WARNING: This must be used AFTER a site has been configured using this ip/port c
 - certregex: Regex used to match the certificate.Subject from the certificate store. Run "ls cert:\LocalMachine\My" to see the existing certificates.
 
 === Examples
-iis7_sslcert "*.mydomain.com" do
-    ip "0.0.0.0"
-    port 443
-    certregex "*CN=[*].mydomain.com*"
-end
+
+  iis7_sslcert "*.mydomain.com" do
+      ip "0.0.0.0"
+      port 443
+      certregex "*CN=[*].mydomain.com*"
+  end
