@@ -1,10 +1,11 @@
-= DESCRIPTION:
+= Description
 A Resource/Provider to create and configure websites in IIS 7 / 7.5.
 
-= REQUIREMENTS:
-Powershell, IIS must already be installed (We don't install it currently)
+= Requirements
+Powershell.
+IIS must already be installed (We don't install it currently)
 
-= RESOURCE/PROVIDER:
+= Resource/Provider
 
 == iis7_site
 Configures a website and app pool.
@@ -32,6 +33,14 @@ Configures a website and app pool.
   	]
   	sslbindings [
   		"*:www.awesome.com:443"
+  	]
+  end
+
+  iis7_site "oldschool.awesome.com" do
+  	path "C:\\Websites\\oldschool.awesome.com"
+  	dotnet "2.0"
+  	bindings [
+  		"*:oldschool.awesome.com:80",
   	]
   end
 
