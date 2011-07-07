@@ -53,7 +53,7 @@ Sets the ssl cert for a certain ip/port combination in IIS 7 / 7.5
 - name: name attribute. Unused
 - ip: IP of the network interface to use this certificate on, set "0.0.0.0" for all.
 - port: Port to use this certificate on.
-- certregex: Regex used to match the certificate.Subject from the certificate store. Run "ls cert:\LocalMachine\My" to see the existing certificates.
+- certregex: Regex used to match the certificate.Subject from the certificate store. Run "ls cert:\\LocalMachine\\My" to see the existing certificates.
 
 === Examples
 
