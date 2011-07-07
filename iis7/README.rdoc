@@ -46,7 +46,8 @@ Configures a website and app pool.
 
 == iis7_sslcert
 Sets the ssl cert for a certain ip/port combination in IIS 7 / 7.5
-WARNING: This must be used AFTER a site has been configured using this ip/port combination, otherwise it will not set anything.
+
+*WARNING*: This must be used AFTER a site has been configured using this ip/port combination, otherwise it will not set anything.
 
 === Attribute Parameters
 - name: name attribute. Unused
