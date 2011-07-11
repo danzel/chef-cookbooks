@@ -1,0 +1,39 @@
+= Description
+A Resource/Provider to create and configure Windows Scheduled Tasks
+
+= Requirements
+Powershell.
+
+= Resource/Provider
+
+== scheduledtask
+Configures a scheduled task
+
+=== Actions
+
+- :create: Create a scheduled task
+- :delete: Delete a scheduled task (NOT IMPLEMENTED)
+- :enable: Enable a scheduled task (NOT IMPLEMENTED)
+- :disable: Disable a scheduled task (NOT IMPLEMENTED)
+
+=== Attribute Parameters
+- name: name attribute Name the scheduled tasks will be created with.
+- command: Command for the scheduled task to execute.
+- start: Start time the scheduled task will execute in the format "HH:mm".
+- repeat: "Daily" or "xMinutes", how often the task should repeat.
+- minutes: If repeat is "xMinutes", this is how often the task should repeat (in minutes), otherwise unused.
+
+=== Examples
+
+  scheduledtask "pointlessping" do
+  	command "ping google.com"
+  	start "23:30"
+  	repeat "Daily"
+  end
+
+  scheduledtask "hourlytask" do
+  	command "C:\\MyTask\\Task.exe --quickly"
+  	start "00:00"
+  	repeat "xMinutes"
+  	minutes "60"
+  end
