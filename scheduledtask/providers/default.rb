@@ -2,7 +2,7 @@
 
 action :create do
 
-	powershell "create" do
+	powershell "ScheduledTask #{new_resource.name}" do
 		code <<-EOH
 		#taskname: Name for the scheduled task, cannot contain any white space
 		#command: Command for the scheduled task to execute, can have command line parameters
@@ -11,6 +11,12 @@ action :create do
 		#minutesRepeat: How often (in minute) to repeat the task, only used if schedule is "xMinutes"
 		function EnsureScheduledTaskExists([string]$taskname, [string]$command, [string]$startTime, [string]$schedule, [int]$minutesRepeat)
 		{
+			#Make sure startTime is in 24hour format
+			if ($startTime.Split(':')[0].Length -eq 1)
+			{
+				$startTime = '0' + $startTime
+			}
+
 			$t = (schtasks.exe /query /tn $taskname /fo list /v 2>&1)
 			$needsCreating = $false
 			
@@ -85,7 +91,6 @@ action :create do
 		}
 		
 		EnsureScheduledTaskExists "#{new_resource.name}" "#{new_resource.command}" "#{new_resource.start}" "#{new_resource.repeat}" "#{new_resource.minutes}"
-		
 		EOH
 	end
 end
