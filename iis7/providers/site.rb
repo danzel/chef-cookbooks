@@ -7,7 +7,7 @@ action :create do
 
 	#http://stackoverflow.com/questions/1924217/powershell-load-webadministration-in-ps1-script-on-both-iis-7-and-iis-7-5
 
-	powershell "createwebsite" do
+	powershell "IIS7_Site #{new_resource.name}" do
 		code <<-EOH
 		$iisVersion = Get-ItemProperty "HKLM:\\software\\microsoft\\InetStp";
 		if ($iisVersion.MajorVersion -eq 7)
