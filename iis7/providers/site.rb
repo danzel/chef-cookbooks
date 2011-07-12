@@ -64,7 +64,6 @@ action :create do
 		{
 			$existingBindings = New-Object System.Collections.ArrayList
 			$existingBindings.AddRange((get-website | where {$_.Name -eq $sitename}).Bindings.Collection)
-			#$existingBindings
 
 			#search for wanted bindings
 			foreach ($binding in $bindings)
@@ -82,7 +81,7 @@ action :create do
 				{
 					"Couldn't find $protocol binding: $binding"
 					$s = $binding.Split(':')
-					New-WebBinding -Name $sitename -Protocol $protocol -IPAddress $s[0] -HostHeader $s[1] -Port $s[2]
+					New-WebBinding -Name $sitename -Protocol $protocol -IPAddress $s[0] -HostHeader $s[2] -Port $s[1]
 				}
 			}
 
@@ -107,7 +106,7 @@ action :create do
 				{
 					"Unwanted $protocol binding: {0}" -f $existing.bindingInformation
 					$s = $existing.bindingInformation.Split(':')
-					Remove-WebBinding -Name $sitename -Protocol $protocol -IPAddress $s[0] -HostHeader $s[1] -Port $s[2]
+					Remove-WebBinding -Name $sitename -Protocol $protocol -IPAddress $s[0] -HostHeader $s[2] -Port $s[1]
 				}
 			}
 		}

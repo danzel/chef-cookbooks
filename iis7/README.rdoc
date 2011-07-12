@@ -19,20 +19,20 @@ Configures a website and app pool.
 - name: name attribute. Name the site and app pool will be created with.
 - path: Local directory that the website will be pointed at. Remember to escape backslashes.
 - dotnet: Version of .Net to configure the app pool with. "2.0" or "4.0" (default)
-- bindings: Array of http bindings to associate, in the format "ip:hostname:port"
-- sslbindings: Array of https bindings to associate, in the format "ip:hostname:port"
+- bindings: Array of http bindings to associate, in the format "ip:port:hostname"
+- sslbindings: Array of https bindings to associate, in the format "ip:port:hostname"
 
 === Examples
 
   iis7_site "www.awesome.com" do
   	path "C:\\Websites\\www.awesome.com"
   	bindings [
-  		"*:www.awesome.com:80",
-  		"*:awesome.com:80",
-  		"*:*:12345",
+  		"*:80:www.awesome.com",
+  		"*:80:awesome.com",
+  		"*:12345:*",
   	]
   	sslbindings [
-  		"*:www.awesome.com:443"
+  		"*:443:www.awesome.com"
   	]
   end
 
@@ -40,7 +40,7 @@ Configures a website and app pool.
   	path "C:\\Websites\\oldschool.awesome.com"
   	dotnet "2.0"
   	bindings [
-  		"*:oldschool.awesome.com:80",
+  		"*:80:oldschool.awesome.com",
   	]
   end
 
