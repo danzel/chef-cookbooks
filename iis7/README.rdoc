@@ -19,7 +19,7 @@ Configures a website and app pool.
 - name: name attribute. Name the site and app pool will be created with.
 - path: Local directory that the website will be pointed at. Remember to escape backslashes.
 - dotnet: Version of .Net to configure the app pool with. "2.0" or "4.0" (default)
-- bindings: Array of http bindings to associate, in the format "ip:port:hostname"
+- bindings: Array of http bindings to associate, in the format "ip:port:hostname". If hostname should match all, leave that section blank (do not use a * here or you will need to manually correct the binding)
 - sslbindings: Array of https bindings to associate, in the format "ip:port:hostname"
 
 === Examples
@@ -29,7 +29,7 @@ Configures a website and app pool.
   	bindings [
   		"*:80:www.awesome.com",
   		"*:80:awesome.com",
-  		"*:12345:*",
+  		"*:12345:",
   	]
   	sslbindings [
   		"*:443:www.awesome.com"
