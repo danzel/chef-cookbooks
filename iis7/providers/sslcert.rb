@@ -2,7 +2,7 @@ action :set do
 	#http://stackoverflow.com/questions/1924217/powershell-load-webadministration-in-ps1-script-on-both-iis-7-and-iis-7-5
 	#http://learn.iis.net/page.aspx/491/powershell-snap-in-configuring-ssl-with-the-iis-powershell-snap-in/
 
-	powershell "setsslcert" do
+	powershell "setsslcert #{new_resource.ip} #{new_resource.port}" do
 		code <<-EOH
 		$iisVersion = Get-ItemProperty "HKLM:\\software\\microsoft\\InetStp";
 		if ($iisVersion.MajorVersion -eq 7)
